@@ -1,7 +1,7 @@
-from pydantic import BaseModel, Field, validator, field_validator
+from pydantic import BaseModel, Field, field_validator
 from typing import Literal
 
-from topics_kg.config import ALLOWED_RELATION_TYPES
+from topics_kg.builder.config import ALLOWED_RELATION_TYPES
 
 
 class TopicRelation(BaseModel):

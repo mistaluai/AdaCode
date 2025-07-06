@@ -3,13 +3,13 @@ from itertools import permutations
 from typing import List, Tuple
 
 from tqdm import tqdm
-from rdflib import Graph, Namespace, URIRef
+from rdflib import Graph, Namespace
 from langchain.chat_models import init_chat_model
 
 from config import TOPICS, NAMESPACE, MODEL_NAME
-from topics_kg.config import RELATIONSHIPS
-from topics_kg.prompt import relation_prompt
-from topics_kg.relation_schema import TopicRelation
+from topics_kg.builder.config import RELATIONSHIPS
+from topics_kg.builder.prompt import relation_prompt
+from topics_kg.builder.relation_schema import TopicRelation
 
 
 def get_topic_pairs() -> List[Tuple[str, str]]:
