@@ -46,5 +46,5 @@ class GraphVisualizer:
         print(f"Graph saved to {output_html}")
 
 if __name__ == "__main__":
-    gv = GraphVisualizer("/Users/mistaluai/Documents/Github Repos/AdaCode/kg.ttl")
+    gv = GraphVisualizer("/kg.ttl")
     gv.visualize("topics_kg_graph.html")

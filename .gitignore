@@ -1,6 +1,6 @@
 /.idea
 .env
 *.pyc
-/topics_kg/kg_utils/lib
+/kg_utils/lib
 *.html
 *.ttl
