@@ -1,7 +1,7 @@
 from pydantic import BaseModel, Field, field_validator
 from typing import List, Literal
 
-from topics_kg.builder.config import ALLOWED_RELATION_TYPES
+from knowledge_graphs.topics_kg.builder.config import ALLOWED_RELATION_TYPES
 
 
 class RelationDetail(BaseModel):

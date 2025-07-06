@@ -1,6 +1,6 @@
 from pyvis.network import Network
 from rdflib import Graph, Namespace
-from topics_kg.builder.config import NAMESPACE, RELATIONSHIPS
+from knowledge_graphs.topics_kg.builder.config import NAMESPACE, RELATIONSHIPS
 
 
 class GraphVisualizer:

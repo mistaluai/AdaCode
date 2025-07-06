@@ -106,4 +106,4 @@ RAW_TOPICS = [
 ]
 
 # Normalized topic names for consistent use in nodes and schema (snake_case, lowercase)
-TOPICS = [topic.replace(" ", "_").lower() for topic in RAW_TOPICS][:2]
+TOPICS = [topic.replace(" ", "_").replace("-", "_").lower() for topic in RAW_TOPICS][:2]

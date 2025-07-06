@@ -1,10 +1,10 @@
-from topics_kg.builder.config import NEO4J_URI, NEO4J_PWD, NEO4J_CLEAR
-from topics_kg.builder.kg_builder import (
+from knowledge_graphs.topics_kg.builder.config import NEO4J_URI, NEO4J_PWD, NEO4J_CLEAR
+from knowledge_graphs.topics_kg.builder.kg_builder import (
     get_topic_pairs,
     init_llm,
     generate_triples,
 )
-from topics_kg.neo4j.neo4j_handling import Neo4jGraph
+from knowledge_graphs.neo4j.neo4j_handling import Neo4jGraph
 
 
 def main():

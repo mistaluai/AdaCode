@@ -3,12 +3,11 @@ from itertools import permutations
 from typing import List, Tuple
 
 from tqdm import tqdm
-from neo4j import GraphDatabase
 from langchain.chat_models import init_chat_model
 
 from config import TOPICS, MODEL_NAME, RELATIONSHIPS
-from topics_kg.builder.prompt import relation_prompt
-from topics_kg.builder.relation_schema import TopicRelation
+from knowledge_graphs.topics_kg.builder.prompt import relation_prompt
+from knowledge_graphs.topics_kg.builder.relation_schema import TopicRelation
 
 
 def get_topic_pairs() -> List[Tuple[str, str]]:
