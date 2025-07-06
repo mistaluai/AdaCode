@@ -20,7 +20,8 @@ RELATIONSHIPS = [
     ("IS_OPTIMIZED_BY", "A becomes faster or better when B is applied."),
     ("IS_PARENT_TOPIC_OF", "A is a more general topic that B belongs to."),
     ("IS_SOLVED_BY", "B is a problem type typically addressed using A."),
-    ("IS_SCAFFOLDED_BY", "A is used to develop the conceptual strength needed for B.")
+    ("IS_SCAFFOLDED_BY", "A is used to develop the conceptual strength needed for B."),
+    ("NONE", "A has no any relationship with B")
 ]
 ALLOWED_RELATION_TYPES = [r[0] for r in RELATIONSHIPS]
 

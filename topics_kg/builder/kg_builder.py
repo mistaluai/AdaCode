@@ -56,7 +56,8 @@ def generate_triples(llm, topic_pairs: List[Tuple[str, str]], delay: float = 1.5
             })
 
             for relation in response.relations:
-                triples.append((response.source, relation, response.target))
+                if relation != 'NONE':
+                    triples.append((response.source, relation, response.target))
 
             time.sleep(delay)
     except Exception as e:
