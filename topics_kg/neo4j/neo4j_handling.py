@@ -23,25 +23,39 @@ class Neo4jGraph:
             MERGE (:Topic {name: $name})
         """, name=topic_name)
 
-    def insert_relationship(self, tx, source: str, relation: str, target: str, description: str):
-        """Insert a relationship with type and description as a property."""
-        tx.run(f"""
+    def insert_relationship(self, tx, source: str, relation: str, target: str, properties: dict):
+        """
+        Insert a relationship with arbitrary properties.
+
+        Args:
+            tx: Neo4j transaction.
+            source: Source topic name.
+            relation: Relationship type.
+            target: Target topic name.
+            properties: Dictionary of properties to attach to the relationship.
+        """
+        # Build SET clauses dynamically from the properties dict
+        set_clauses = ", ".join([f"r.{key} = ${key}" for key in properties.keys()])
+
+        # Merge and set properties
+        cypher = f"""
             MATCH (a:Topic {{name: $source}})
             MATCH (b:Topic {{name: $target}})
             MERGE (a)-[r:{relation}]->(b)
-            SET r.description = $description
-        """, source=source, target=target, description=description)
-
-    def add_knowledge_triples(self, triples: List[Tuple[str, str, str, str]]):
+            SET {set_clauses}
         """
-        Insert nodes and edges into Neo4j.
+
+        tx.run(cypher, source=source, target=target, **properties)
+
+    def add_knowledge_triples(self, triples: List[Tuple[str, str, str, dict[str, str]]]):
+        """
+        Insert nodes and edges with properties into Neo4j.
 
         Args:
-            triples: A list of (source, relation_type, target, description) tuples.
+            triples: A list of (source, relation_type, target, properties_dict) tuples.
         """
         with self.driver.session() as session:
-            for source, relation, target, description in triples:
+            for source, relation, target, properties in triples:
                 session.execute_write(self.insert_topic, source)
                 session.execute_write(self.insert_topic, target)
-                session.execute_write(self.insert_relationship, source, relation, target, description)
-
+                session.execute_write(self.insert_relationship, source, relation, target, properties)

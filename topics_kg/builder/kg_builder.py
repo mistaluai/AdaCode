@@ -19,7 +19,7 @@ def init_llm():
     """Initialize the chat model with TopicRelation structured output."""
     return init_chat_model(MODEL_NAME).with_structured_output(TopicRelation)
 
-def generate_triples(llm, topic_pairs: List[Tuple[str, str]], delay: float = 1.5) -> List[Tuple[str, str, str, str]]:
+def generate_triples(llm, topic_pairs: List[Tuple[str, str]], delay: float = 1.5) -> List[Tuple[str, str, str, dict[str, str]]]:
     """
     Use the LLM to infer relationships between topic pairs and return valid triples with descriptions.
 
@@ -39,7 +39,7 @@ def generate_triples(llm, topic_pairs: List[Tuple[str, str]], delay: float = 1.5
 
             for rel in response.relations:
                 if rel.type != "NONE":
-                    triples.append((response.source, rel.type, response.target, rel.description))
+                    triples.append((response.source, rel.type, response.target, {"description":rel.description}))
 
             time.sleep(delay)
 
