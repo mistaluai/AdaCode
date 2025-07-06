@@ -2,6 +2,7 @@ import time
 from itertools import permutations
 from typing import List, Tuple
 
+import langchain_google_genai
 from tqdm import tqdm
 from rdflib import Graph, Namespace
 from langchain.chat_models import init_chat_model
@@ -46,16 +47,20 @@ def generate_triples(llm, topic_pairs: List[Tuple[str, str]], delay: float = 1.5
     """
     relation_chain = relation_prompt | llm
     triples = []
+    try:
+        for topic_a, topic_b in tqdm(topic_pairs, desc="Generating triples"):
+            response: TopicRelation = relation_chain.invoke({
+                "topic_a": topic_a,
+                "topic_b": topic_b,
+                "RELATIONSHIPS": RELATIONSHIPS
+            })
 
-    for topic_a, topic_b in tqdm(topic_pairs, desc="Generating triples"):
-        response: TopicRelation = relation_chain.invoke({
-            "topic_a": topic_a,
-            "topic_b": topic_b,
-            "RELATIONSHIPS": RELATIONSHIPS
-        })
-        triple = (response.source, response.relation, response.target)
-        triples.append(triple)
-        time.sleep(delay)
+            for relation in response.relations:
+                triples.append((response.source, relation, response.target))
+
+            time.sleep(delay)
+    except Exception as e:
+        print(f"Probably Quota Problem, saving whatever triples we got, error: {e}")
 
     return triples
 
