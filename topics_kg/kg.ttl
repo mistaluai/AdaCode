@@ -1,0 +1,4 @@
+@prefix ex: <http://example.org/leetcode/> .
+
+ex:two_pointers ex:IS_IMPLEMENTED_WITH ex:arrays .
+
