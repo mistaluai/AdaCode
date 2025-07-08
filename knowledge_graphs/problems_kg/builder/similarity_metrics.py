@@ -87,12 +87,17 @@ def compute_problem_similarity(
     if graph_sim:
         graph_score = average_graph_similarity(p1["topics"], p2["topics"], graph_sim)
 
-    final_score = (
+    final_score = {"overall": (
         weights["topics"] * topic_sim +
         weights["difficulty"] * diff_sim +
         weights["acceptance"] * acc_sim +
         weights["graph"] * graph_score
-    )
+    ),
+        "topic": topic_sim,
+        "difficulty": diff_sim,
+        "acceptance": acc_sim,
+        "graph": graph_score
+    }
 
     return final_score
 
@@ -119,5 +124,5 @@ if __name__ == "__main__":
 
     graph_sim = Neo4jGraphSim()
     score = compute_problem_similarity(p1, p2, graph_sim, weights)
-    print(f"Similarity score: {score:.3f}")
+    print(f"Similarity scores: {score}")
     graph_sim.close()
